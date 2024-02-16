@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ -z "$1" ]; then exit 1; fi
+
+html=$(curl -s "https://open.spotify.com/track/$1")
+
+artist=$(echo $html |
+    grep -Po '<meta name="music:musician_description" content="(.*?)"\/>')
+title=$(echo $html |
+    grep -Po '<meta property="og:title" content="(.*?)"\/>')
+
+echo ${artist:49:-3} ${title:35:-3}
