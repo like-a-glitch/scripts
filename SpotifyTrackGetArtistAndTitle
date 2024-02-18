@@ -8,4 +8,4 @@ artist=$(echo $html |
 title=$(echo $html |
     grep -Po '<meta property="og:title" content="(.*?)"\/>')
 
-echo ${artist:49:-3} ${title:35:-3} | recode html..ascii
+echo ${artist:49:-3} ${title:35:-3} | recode html..ISO-8859-1
