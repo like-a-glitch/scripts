@@ -1,0 +1,23 @@
+#!/bin/bash
+# usage: cat input.txt | xargs ./SpotifyTracksToYtPlaylist
+
+cache="$HOME/.cache/SpotifyTracksToYtPlaylist.cache"
+if [ ! -f "$cache" ]; then
+    mkdir -p "$(dirname "$cache")"
+    touch "$cache"
+fi
+
+for spotifyId in $@; do
+    ytId=$(grep "^$spotifyId:" "$cache" |
+        cut -d ":" -f 2)
+
+    if [ -z "$ytId" ]; then
+        ytId=$(./SpotifyTrackGetArtistAndTitle $spotifyId |
+            xargs -0 ./YtGetFirstId)
+        echo $spotifyId:$ytId >> $cache
+    fi
+
+    ytIds+=" $ytId"
+done
+
+echo $(./YtGeneratePlaylist$ytIds)
