@@ -1,5 +1,5 @@
 #!/bin/bash
-# usage: cat input.txt | xargs ./SpotifyTracksToYtPlaylist
+# usage: cat input.txt | xargs SpotifyTracksToYtPlaylist
 
 cache="$HOME/.cache/SpotifyTracksToYtPlaylist.cache"
 mkdir -p "$(dirname "$cache")"
@@ -10,12 +10,12 @@ for spotifyId in $@; do
         cut -d ":" -f 2)
 
     if [ -z "$ytId" ]; then
-        ytId=$(./SpotifyTrackGetArtistAndTitle $spotifyId |
-            xargs -0 ./YtGetFirstId)
+        ytId=$(SpotifyTrackGetArtistAndTitle $spotifyId |
+            xargs -0 YtGetFirstId)
         echo $spotifyId:$ytId >> $cache
     fi
 
     ytIds+=" $ytId"
 done
 
-echo $(./YtGeneratePlaylist$ytIds)
+echo $(YtGeneratePlaylist$ytIds)
