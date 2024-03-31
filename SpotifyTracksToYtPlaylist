@@ -15,7 +15,12 @@ for spotifyId in $@; do
         echo $spotifyId:$ytId >> $cache
     fi
 
-    ytIds+=" $ytId"
+    ytIds+=($ytId)
 done
 
-echo $(YtGeneratePlaylist$ytIds)
+random=false
+if $random; then
+    ytIds=($(shuf -e "${ytIds[@]}"))
+fi
+
+echo $(YtGeneratePlaylist "${ytIds[@]}")
