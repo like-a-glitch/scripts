@@ -1,11 +1,18 @@
 #!/bin/bash
 # usage: cat input.txt | xargs SpotifyTracksToYtPlaylist
 
+for arg in $@; do case $arg in
+    '-r')
+        random=true ;;
+    *)
+        spotifyIds+=($arg) ;;
+esac done
+
 cache="$HOME/.cache/SpotifyTracksToYtPlaylist.cache"
 mkdir -p "$(dirname "$cache")"
 touch "$cache"
 
-for spotifyId in $@; do
+for spotifyId in "${spotifyIds[@]}"; do
     ytId=$(grep "^$spotifyId:" "$cache" |
         cut -d ":" -f 2)
 
@@ -18,8 +25,7 @@ for spotifyId in $@; do
     ytIds+=($ytId)
 done
 
-random=false
-if $random; then
+if [ "$random" = true ]; then
     ytIds=($(shuf -e "${ytIds[@]}"))
 fi
 
