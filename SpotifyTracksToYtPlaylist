@@ -1,11 +1,11 @@
 #!/bin/bash
 # usage: cat input.txt | xargs SpotifyTracksToYtPlaylist
 
-for arg in $@; do case $arg in
+for arg in "$@"; do case "$arg" in
     '-r')
         random=true ;;
     *)
-        spotifyIds+=($arg) ;;
+        spotifyIds+=("$arg") ;;
 esac done
 
 cache="$HOME/.cache/SpotifyTracksToYtPlaylist.cache"
@@ -17,12 +17,12 @@ for spotifyId in "${spotifyIds[@]}"; do
         cut -d ":" -f 2)
 
     if [ -z "$ytId" ]; then
-        ytId=$(SpotifyTrackGetArtistAndTitle $spotifyId |
+        ytId=$(SpotifyTrackGetArtistAndTitle "$spotifyId" |
             xargs -0 YtGetFirstId)
-        echo $spotifyId:$ytId >> $cache
+        echo "$spotifyId:$ytId" >> "$cache"
     fi
 
-    ytIds+=($ytId)
+    ytIds+=("$ytId")
 done
 
 if [ "$random" = true ]; then
