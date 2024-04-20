@@ -19,6 +19,9 @@ for spotifyId in "${spotifyIds[@]}"; do
     if [ -z "$ytId" ]; then
         ytId=$(SpotifyTrackGetArtistAndTitle "$spotifyId" |
             xargs -0 YtGetFirstId)
+
+        if [ -z "$ytId" ]; then continue; fi
+
         echo "$spotifyId:$ytId" >> "$cache"
     fi
 
