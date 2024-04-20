@@ -29,4 +29,4 @@ if [ "$random" = true ]; then
     mapfile -t ytIds < <(shuf -e -- "${ytIds[@]}")
 fi
 
-echo $(YtGeneratePlaylist "${ytIds[@]}")
+YtGeneratePlaylist "${ytIds[@]}"
