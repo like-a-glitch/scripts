@@ -1,5 +1,5 @@
 #!/bin/bash
-# usage: cat input.txt | xargs SpotifyTracksToYtPlaylist
+# usage: cat input.txt | xargs SpotifyToYt
 
 for arg in "$@"; do case "$arg" in
     '-r')
@@ -8,7 +8,7 @@ for arg in "$@"; do case "$arg" in
         spotifyIds+=("$arg") ;;
 esac done
 
-cache="$HOME/.cache/SpotifyTracksToYtPlaylist.cache"
+cache="$HOME/.cache/SpotifyToYt.cache"
 mkdir -p "$(dirname "$cache")"
 touch "$cache"
 
