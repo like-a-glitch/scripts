@@ -1,12 +1,18 @@
 #!/bin/bash
-# usage: cat input.txt | xargs SpotifyToYt
+usage="Example: cat input.txt | xargs SpotifyToYt"
 
 for arg in "$@"; do case "$arg" in
+    '-h' | '--help')
+        echo "$usage"; exit 0 ;;
     '-r')
         random=true ;;
     *)
         spotifyIds+=("$arg") ;;
 esac done
+
+if [ -z "${spotifyIds[*]}" ]; then
+    echo "$usage"; exit 0
+fi
 
 cache="$HOME/.cache/SpotifyToYt.cache"
 mkdir -p "$(dirname "$cache")"
