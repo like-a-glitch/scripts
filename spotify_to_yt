@@ -1,5 +1,5 @@
 #!/bin/bash
-usage="Example: cat input.txt | xargs SpotifyToYt"
+usage="Example: cat input.txt | xargs spotify_to_yt"
 
 for arg in "$@"; do case "$arg" in
     '-h' | '--help')
@@ -14,7 +14,7 @@ if [ -z "${spotifyIds[*]}" ]; then
     echo "$usage"; exit 0
 fi
 
-cache="$HOME/.cache/SpotifyToYt.cache"
+cache="$HOME/.cache/spotify_to_yt.cache"
 mkdir -p "$(dirname "$cache")"
 touch "$cache"
 
@@ -23,7 +23,7 @@ for spotifyId in "${spotifyIds[@]}"; do
         cut -d ":" -f 2)
 
     if [ -z "$ytId" ]; then
-        ytId=$(SpotifyTrackGetArtistAndTitle "$spotifyId" |
+        ytId=$(spotify_track_get_artist_and_title "$spotifyId" |
             xargs -0 YtGetFirstId)
 
         if [ -z "$ytId" ]; then 
@@ -41,4 +41,4 @@ if [ "$random" = true ]; then
     mapfile -t ytIds < <(shuf -e -- "${ytIds[@]}")
 fi
 
-YtGeneratePlaylist "${ytIds[@]}"
+yt_generate_playlist "${ytIds[@]}"

@@ -1,4 +1,4 @@
 #!/bin/bash
-for sinkInput in $(PulseAudioGetSinkInputs "$1"); do
+for sinkInput in $(pulse_audio_get_sink_inputs "$1"); do
     pactl set-sink-input-volume "$sinkInput" "$2"%
 done
