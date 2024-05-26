@@ -1,6 +1,6 @@
 #!/bin/bash
-pacmd list-sink-inputs |
-    grep -E "index: |$1" |
+pactl list sink-inputs |
+    grep -E "Sink Input #|$1" |
     xargs echo | # converts the input into a space-separated string and outputs it
-    grep -Po '(index: \d+\s(?!index: ))' |
+    grep -Po '(Sink Input #\d+\s(?!Sink Input #))' |
     grep -Po '\d+'
