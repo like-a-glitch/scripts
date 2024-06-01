@@ -1,0 +1,35 @@
+#!/bin/bash
+
+usage="Usage:
+
+    $0 <category> <search_value>
+
+Where:
+
+    <category>
+        One of the following PulseAudio categories:
+        cards clients message-handlers modules samples sink-inputs sinks source-outputs sources
+
+    <search_value>
+        The value to search for within the specified category."
+
+if [ "$#" -ne 2 ] || [ -z "$2" ]; then echo "$usage"; exit 1; fi
+
+case $1 in
+    'cards') prefix='Card' ;;
+    'clients') prefix='Client' ;;
+    'message-handlers') prefix='Message Handler' ;;
+    'modules') prefix='Module' ;;
+    'samples') prefix='Sample' ;;
+    'sink-inputs') prefix='Sink Input' ;;
+    'sinks') prefix='Sink' ;;
+    'source-outputs') prefix='Source Output' ;;
+    'sources') prefix='Source' ;;
+    *) { echo "$usage"; exit 1; }
+esac
+
+pactl list "$1" |
+    grep -E "$prefix #|$2" |
+    xargs echo | # converts the input into a space-separated string
+    grep -Po "($prefix #\d+\s(?!$prefix #))" |
+    grep -Po '\d+'
