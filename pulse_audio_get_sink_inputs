@@ -1,6 +1,0 @@
-#!/bin/bash
-pactl list sink-inputs |
-    grep -E "Sink Input #|$1" |
-    xargs echo | # converts the input into a space-separated string and outputs it
-    grep -Po '(Sink Input #\d+\s(?!Sink Input #))' |
-    grep -Po '\d+'
