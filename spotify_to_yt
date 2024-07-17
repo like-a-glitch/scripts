@@ -24,7 +24,7 @@ for spotifyId in "${spotifyIds[@]}"; do
 
     if [ -z "$ytId" ]; then
         ytId=$(spotify_track_get_artist_and_title "$spotifyId" |
-            xargs -0 YtGetFirstId)
+            xargs -0 yt_get_first_id)
 
         if [ -z "$ytId" ]; then 
             echo "nothing found for spotify id '$spotifyId'"
