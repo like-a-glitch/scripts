@@ -4,6 +4,8 @@ usage="Example: cat input.txt | xargs spotify_to_yt"
 for arg in "$@"; do case "$arg" in
     '-h' | '--help')
         echo "$usage"; exit 0 ;;
+    '-p')
+        playlist=true ;;
     '-r')
         random=true ;;
     *)
@@ -41,4 +43,9 @@ if [ "$random" = true ]; then
     mapfile -t ytIds < <(shuf -e -- "${ytIds[@]}")
 fi
 
-yt_generate_playlist "${ytIds[@]}"
+if [ "$playlist" = true ]; then
+    yt_generate_playlist "${ytIds[@]}"
+    exit 0
+fi
+
+printf "https://www.youtube.com/watch?v=%s\n" "${ytIds[@]}"
