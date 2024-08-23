@@ -2,7 +2,7 @@
 
 usage="Usage:
 
-    $0 <category> <search_value>
+    $(basename "$0") <category> <search_value>
 
 Where:
 
