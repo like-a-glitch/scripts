@@ -1,17 +1,13 @@
 #!/bin/bash
 
 usage="Usage:
-
     $(basename "$0") <category> <search_value>
 
-Where:
-
-    <category>
-        One of the following PulseAudio categories:
-        cards clients message-handlers modules samples sink-inputs sinks source-outputs sources
-
-    <search_value>
-        The value to search for within the specified category."
+Arguments:
+    <category>      One of the following PulseAudio categories:
+                    cards clients message-handlers modules samples sink-inputs
+                    sinks source-outputs sources
+    <search_value>  The value to search for within the specified category."
 
 if [ "$#" -ne 2 ] || [ -z "$2" ]; then echo "$usage"; exit 1; fi
 

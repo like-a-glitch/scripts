@@ -1,5 +1,19 @@
 #!/bin/bash
-usage="Example: cat input.txt | xargs spotify_to_yt"
+
+usage="Usage:
+    $(basename "$0") [options] <spotify_id>...
+
+Options:
+    -h, --help  Show this help message and exit.
+    -p          Generate a YouTube playlist with the resulting video IDs.
+    -r          Randomize the order of the YouTube video IDs.
+
+Arguments:
+    <spotify_id>    One or more Spotify track IDs to convert to YouTube video URLs.
+
+Examples:
+    $(basename "$0") 4PTG3Z6ehGkBFwjybzWkR8 6habFhsOp2NvshLv26DqMb
+    cat input.txt | xargs $(basename "$0")"
 
 for arg in "$@"; do case "$arg" in
     '-h' | '--help')
