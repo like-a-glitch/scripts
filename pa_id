@@ -21,7 +21,7 @@ case $1 in
     'sinks') prefix='Sink' ;;
     'source-outputs') prefix='Source Output' ;;
     'sources') prefix='Source' ;;
-    *) { echo "$usage"; exit 1; }
+    *) echo "$usage"; exit 1
 esac
 
 pactl list "$1" |

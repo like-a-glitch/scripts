@@ -16,14 +16,10 @@ Examples:
     cat input.txt | xargs $(basename "$0")"
 
 for arg in "$@"; do case "$arg" in
-    '-h' | '--help')
-        echo "$usage"; exit 0 ;;
-    '-p')
-        playlist=true ;;
-    '-r')
-        random=true ;;
-    *)
-        spotifyIds+=("$arg") ;;
+    '-h' | '--help') echo "$usage"; exit 0 ;;
+    '-p') playlist=true ;;
+    '-r') random=true ;;
+    *) spotifyIds+=("$arg")
 esac done
 
 if [ -z "${spotifyIds[*]}" ]; then
