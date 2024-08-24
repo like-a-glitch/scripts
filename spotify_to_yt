@@ -30,7 +30,7 @@ if [ -z "${spotifyIds[*]}" ]; then
     echo "$usage"; exit 0
 fi
 
-cache="$HOME/.cache/spotify_to_yt.cache"
+cache="$HOME/.cache/$(basename "$0").cache"
 mkdir -p "$(dirname "$cache")"
 touch "$cache"
 
