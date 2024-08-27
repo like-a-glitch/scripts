@@ -1,0 +1,9 @@
+#!/bin/bash
+
+usage="Usage: Outputs stdin without trailing newlines"
+
+if test ! -t 0; then # https://unix.stackexchange.com/a/484643
+    printf "%s" "$(cat)" # command substitution removes trailing newlines
+else
+    printf "%s\n" "$usage"; exit 1
+fi
