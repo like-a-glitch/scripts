@@ -2,4 +2,4 @@
 
 if [ -z "$1" ]; then echo "Usage: $(basename "$0") <twitch username>"; exit 1; fi
 
-streamlink --player mpv --twitch-low-latency twitch.tv/"$1" best
+streamlink --player mpv --twitch-low-latency twitch.tv/"$1" best >> "/tmp/$(basename "$0").log" &
