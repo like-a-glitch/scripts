@@ -1,0 +1,22 @@
+#!/bin/bash
+
+usage="Usage: $(basename "$0") <category> <id> <volume>
+
+Arguments:
+    <category>  One of the following PulseAudio categories:
+                sink-input sink source-output source
+    <id>        PulseAudio Id
+    <volume>    mute / unmute / toggle / volume (without %)"
+
+if [ "$#" -ne 3 ] || [ -z "$2" ] ||
+   [[ ! "$1" =~ ^(sink-input|sink|source-output|source)$ ]] ||
+   [[ ! "$3" =~ ^(mute|unmute|toggle|[+-]?[0-9]+)$ ]]; then
+    echo "$usage"; exit 1;
+fi
+
+case "$3" in
+    'mute') pactl set-"$1"-mute "$2" true ;;
+    'unmute') pactl set-"$1"-mute "$2" false ;;
+    'toggle') pactl set-"$1"-mute "$2" toggle ;;
+    *) pactl set-"$1"-volume "$2" "$3"% ;;
+esac
