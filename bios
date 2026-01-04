@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo -n "Press Y to reboot into firmware (BIOS/UEFI), any other key to cancel: "
+read -r -n 1 key
+echo
+
+if [[ "$key" == "Y" || "$key" == "y" ]]; then
+  systemctl reboot --firmware-setup
+else
+  echo "Cancelled"
+fi
